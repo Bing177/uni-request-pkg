@@ -32,7 +32,7 @@ function responseInterceptor(response) {
 }
 
 // 封装request()
-function request(url, method = 'GET', timeout = 3000, header = {}, data = {}) {
+function request(url, method = 'GET', timeout, header, data) {
     return new Promise((resolve, reject) => {
         // 发送request()之前，调用请求拦截器，对请求进行处理，再发送给服务器
         const req = requestInterceptor({
@@ -66,10 +66,10 @@ function request(url, method = 'GET', timeout = 3000, header = {}, data = {}) {
 
 // 默认暴露get()和post()方式
 export default {
-    get(url, header, data) {
-        return request(url, 'GET', 3000, header, data)
+    get(url,timeout=3000, header={}, data) {
+        return request(url, 'GET', timeout, header, data)
     },
-    post(url, header, data) {
-        return request(url, 'POST', 3000, header, data)
+    post(url,timeout=3000, header={}, data={}) {
+        return request(url, 'POST', timeout, header, data)
     }
 }
